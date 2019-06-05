@@ -1,0 +1,31 @@
+<form id ="donate" action="<%=cats_url %>" method="post">
+
+<label> Name: 
+  <input type="text" name = 'cat[name]' value = 'cat[name]' >
+</label>
+<br>
+<label> Sex: 
+  <input type="radio" name = 'cat[sex]' value = 'M' > Male 
+  <input type="radio" name = 'cat[sex]' value = 'F' > Female 
+</label>
+<br>
+
+  <label> Color: 
+    <select name = 'cat[color]' >
+    <option value="">---------</option>
+    <% Cat.get_colors.each do |color|%>
+      <option value="<%= color %>"><%= color.capitalize %></option>
+    <% end%>
+  </label>
+
+  <br>
+
+  <label> Date: 
+    <input type="date" name = 'cat[birth_date]' value = '' >
+  </label>
+  <br>
+    <textarea rows="4" cols="50" name="cat[description]" form="donate">
+    Tell us about your cat..</textarea>
+  <br>
+  <input type = 'submit' value = 'Donate Cat'>
+</form>

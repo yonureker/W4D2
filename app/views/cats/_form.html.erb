@@ -1,0 +1,55 @@
+<% if action == :new %>
+<% button_text = 'donate'%>
+<% action_type = cats_url %>
+<% elsif action == :edit %>
+<% button_text = 'update'%>
+<% action_type = cat_url(cat) %>
+<% end %>
+<form id ='<%=button_text%>' action="<%=action_type%>" method="post">
+<% if action == :edit %>
+  <input type='hidden' name = "_method" value = "patch"/>
+<% end %>
+
+
+<label> Name: 
+  <input type="text" name = 'cat[name]' value = '<%=cat.name%>' >
+</label>
+<br>
+<label> Sex: 
+  <% if cat.sex == 'M' %>
+    <input type="radio" name = 'cat[sex]' value = 'M' checked> Male 
+    <input type="radio" name = 'cat[sex]' value = 'F' > Female 
+  <% elsif  cat.sex == 'F'%>
+    <input type="radio" name = 'cat[sex]' value = 'M' > Male 
+    <input type="radio" name = 'cat[sex]' value = 'F' checked> Female
+  <% else%>
+    <input type="radio" name = 'cat[sex]' value = 'M' > Male
+    <input type="radio" name = 'cat[sex]' value = 'F' > Female
+  <% end %>
+</label>
+<br>
+
+<label> Color: 
+  <select name = 'cat[color]' >
+  <% if action == :edit %>
+    <option value="<%= cat.color %>"> <%= cat.color.capitalize %></option>
+  <% elsif action == :new %>
+    <option value="">---------</option>
+  <% end %>
+  <% Cat.get_colors.each do |color|%>
+    <option value="<%= color %>"><%= color.capitalize %></option>
+  <% end%>
+</label>
+
+<br>
+
+<label> Date: 
+  <input type="date" name = 'cat[birth_date]' value = '<%= cat.birth_date %>' >
+</label>
+<br>
+<textarea rows="4" cols="50" name="cat[description]" form='<%=button_text%>'>
+<%= cat.description %></textarea>
+<br>
+<input type = 'submit' value = '<%=button_text.capitalize%> Cat'>
+</form>
+
